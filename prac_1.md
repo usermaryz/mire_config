@@ -53,7 +53,7 @@ sudo mv "$1" /usr/local/bin/
 ```
 #!/bin/bash
 
-check_comment_in_first_line() {
+find . -type f \( -name "*.c" -o -name "*.js" -o -name "*.py" \) | while read -r file; do
     local file=$1
     local first_line=$(head -n 1 "$file")
 
@@ -70,10 +70,6 @@ check_comment_in_first_line() {
             echo "[$file] no comment"
         fi
     fi
-}
-
-find . -type f \( -name "*.c" -o -name "*.js" -o -name "*.py" \) | while read -r file; do
-    check_comment_in_first_line "$file"
 done
 ```
 
