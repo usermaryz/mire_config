@@ -50,7 +50,34 @@ sudo mv "$1" /usr/local/bin/
 ```
 
 ## Задача 6
+```
+#!/bin/bash
 
+# Проверка первой строки на наличие комментария
+check_comment_in_first_line() {
+    local file=$1
+    local first_line=$(head -n 1 "$file")
+
+    if [[ "$file" =~ \.(c|js)$ ]]; then
+        if [[ "$first_line" =~ ^\s*\/\/ ]] || [[ "$first_line" =~ ^\s*\/\* ]]; then
+            echo "[$file] have comment"
+        else
+            echo "[$file] no comment"
+        fi
+    elif [[ "$file" =~ \.py$ ]]; then
+        if [[ "$first_line" =~ ^\s*# ]]; then
+            echo "[$file] have comment"
+        else
+            echo "[$file] no comment"
+        fi
+    fi
+}
+
+# Поиск всех файлов с расширениями .c, .js и .py в текущем каталоге и его подкаталогах
+find . -type f \( -name "*.c" -o -name "*.js" -o -name "*.py" \) | while read -r file; do
+    check_comment_in_first_line "$file"
+done
+```
 
 ## Задача 7
 
