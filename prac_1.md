@@ -53,7 +53,6 @@ sudo mv "$1" /usr/local/bin/
 ```
 #!/bin/bash
 
-# Проверка первой строки на наличие комментария
 check_comment_in_first_line() {
     local file=$1
     local first_line=$(head -n 1 "$file")
@@ -73,7 +72,6 @@ check_comment_in_first_line() {
     fi
 }
 
-# Поиск всех файлов с расширениями .c, .js и .py в текущем каталоге и его подкаталогах
 find . -type f \( -name "*.c" -o -name "*.js" -o -name "*.py" \) | while read -r file; do
     check_comment_in_first_line "$file"
 done
