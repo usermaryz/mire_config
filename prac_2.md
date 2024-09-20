@@ -4,7 +4,9 @@ pip show matplotlib
 ```
 <img width="571" alt="image" src="https://github.com/user-attachments/assets/45e633f0-3a07-4d05-8400-f1acfbaac1c0">
 
-```git clone https://github.com/matplotlib/matplotlib.git```
+```
+git clone https://github.com/matplotlib/matplotlib.git
+```
 
 ## Задача2
 ```
@@ -12,7 +14,9 @@ npm view express
 ```
 <img width="569" alt="image" src="https://github.com/user-attachments/assets/48fb078b-93c1-47f3-9af2-be785177bd5e">
 
-```git clone https://github.com/expressjs/express.git```
+```
+git clone https://github.com/expressjs/express.git
+```
 
 
 ## Задача3
