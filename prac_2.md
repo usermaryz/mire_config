@@ -25,6 +25,23 @@ git clone https://github.com/expressjs/express.git
 
 ## Задача4
 ```
+include "globals.mzn";
+
+% Определяем билет как массив из 6 цифр, каждая из которых от 0 до 9
+array[1..6] of var 0..9: ticket;
+
+% Левая и правая части билета (по 3 цифры)
+var int: left_sum = ticket[1] + ticket[2] + ticket[3];
+var int: right_sum = ticket[4] + ticket[5] + ticket[6];
+
+% Все цифры билета должны быть различны
+constraint all_different(ticket);
+
+% Сумма левой части должна быть равна сумме правой части
+constraint left_sum = right_sum;
+
+% Определение целевой функции - минимизация суммы всех цифр (можно минимизировать, например, сумму цифр билета)
+solve minimize (ticket[1]+ticket[2]+ticket[3]);
 ```
 
 ## Задача5
