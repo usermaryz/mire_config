@@ -24,7 +24,7 @@ git clone https://github.com/expressjs/express.git
 ```
 
 ## Задача4
-```
+```minizinc
 include "globals.mzn";
 
 % Определяем билет как массив из 6 цифр, каждая из которых от 0 до 9
