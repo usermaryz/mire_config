@@ -69,8 +69,70 @@ npm install
 
 
 ## Задача3
+```python
+import graphviz
+
+# Создание графа зависимостей с помощью graphviz
+dot = graphviz.Digraph(
+    comment="Dependencies for matplotlib and plotly.express")
+
+# Зависимости matplotlib
+dot.node('matplotlib', 'matplotlib')
+dot.node('numpy', 'numpy')
+dot.node('cycler', 'cycler')
+dot.node('kiwisolver', 'kiwisolver')
+dot.node('pyparsing', 'pyparsing')
+dot.node('python_dateutil', 'python_dateutil')
+
+# Добавление ребер для matplotlib
+dot.edge('matplotlib', 'numpy')
+dot.edge('matplotlib', 'cycler')
+dot.edge('matplotlib', 'kiwisolver')
+dot.edge('matplotlib', 'pyparsing')
+dot.edge('matplotlib', 'python_dateutil')
+
+# Общие зависимости
+dot.edge('numpy', 'pandas')
+
+# Сохранение и рендеринг графа
+output_path = 'dependencies_graph'
+dot.render(output_path, format='png')
+
+print(f"Граф сохранен в файл: {output_path}.png")
 ```
+![dependencies_graph](https://github.com/user-attachments/assets/42169f3c-d0c1-46ca-b133-9b0fe8139946)
+
+
+```python
+import graphviz
+
+# Создание графа зависимостей с помощью graphviz
+dot = graphviz.Digraph(
+    comment="Dependencies for matplotlib and plotly.express")
+
+# Зависимости plotly.express
+dot.node('plotly.express', 'plotly.express')
+dot.node('plotly', 'plotly')
+dot.node('pandas', 'pandas')
+dot.node('scipy', 'scipy')
+
+# Добавление ребер для plotly.express
+dot.edge('plotly.express', 'plotly')
+dot.edge('plotly', 'pandas')
+dot.edge('plotly', 'numpy')
+dot.edge('plotly', 'scipy')
+
+# Общие зависимости
+dot.edge('numpy', 'pandas')
+
+# Сохранение и рендеринг графа
+output_path = 'dependencies_graph'
+dot.render(output_path, format='png')
+
+print(f"Граф сохранен в файл: {output_path}.png")
 ```
+![dependencies_graph](https://github.com/user-attachments/assets/61f019db-0724-4603-b99f-1adf7e626167)
+
 
 ## Задача4
 ```minizinc
