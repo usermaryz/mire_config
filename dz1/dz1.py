@@ -39,7 +39,8 @@ class ShellEmulatorCLI:
         if command.startswith("ls"):
             self.ls_command()
         elif command.startswith("cd"):
-            exit()
+            path = command.split(" ")[1] if len(command.split()) > 1 else "/"
+            self.cd_command(path)
         elif command.startswith("touch"):
             exit()
         elif command == "date":
@@ -59,8 +60,13 @@ class ShellEmulatorCLI:
         print("  ".join(contents))
 
     def cd_command(self, path):
-         # cd: изменение текущего каталога
-         exit()
+        # cd: изменение текущего каталога
+        if path == "..":
+            self.current_directory = os.path.dirname(self.current_directory)
+        elif './' + path in self.file_system:
+            self.current_directory = './' + path
+        else:
+            print(f"Error: Directory {path} not found")
 
     def touch_command(self, filename):
         # touch: создание нового файла
