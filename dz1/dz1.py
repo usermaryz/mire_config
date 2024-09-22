@@ -42,11 +42,13 @@ class ShellEmulatorCLI:
             path = command.split(" ")[1] if len(command.split()) > 1 else "/"
             self.cd_command(path)
         elif command.startswith("touch"):
-            exit()
+            filename = command.split(" ")[1] if len(command.split()) > 1 else ""
+            self.touch_command(filename)
         elif command == "date":
             self.date_command()
         elif command.startswith("du"):
-            exit()
+            path = command.split(" ")[1] if len(command.split()) > 1 else ""
+            self.du_command(path)
         elif command == "exit":
             exit()
         else:
@@ -70,7 +72,12 @@ class ShellEmulatorCLI:
 
     def touch_command(self, filename):
         # touch: создание нового файла
-        exit()
+        if filename:
+            file_path = os.path.join(self.current_directory, filename).replace("\\", "/")
+            self.file_system[file_path] = None  # Add file to virtual FS
+            print(f"Created file: {filename}")
+        else:
+            print("Error: No filename provided")
 
     def date_command(self):
         # date: текущая дата и время
@@ -79,7 +86,12 @@ class ShellEmulatorCLI:
 
     def du_command(self, path):
         # du: размер указанного файла или директории
-        exit()
+        full_path = os.path.join(self.current_directory, path).replace("\\", "/")
+        if full_path in self.file_system:
+            size = self.file_system[full_path].size if self.file_system[full_path] else 0
+            print(f"Size of {path}: {size} bytes")
+        else:
+            print(f"Error: File {path} not found")
 
 
 if __name__ == "__main__":
