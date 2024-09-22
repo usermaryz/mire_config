@@ -43,7 +43,7 @@ class ShellEmulatorCLI:
         elif command.startswith("touch"):
             exit()
         elif command == "date":
-            exit()
+            self.date_command()
         elif command.startswith("du"):
             exit()
         elif command == "exit":
@@ -55,7 +55,8 @@ class ShellEmulatorCLI:
 
     def ls_command(self):
         # ls: содержимое текущего каталога
-        exit()
+        contents = [name.split('/')[-1] for name in self.file_system.keys() if name != self.current_directory and "/".join(name.split('/')[:-1]) == self.current_directory]
+        print("  ".join(contents))
 
     def cd_command(self, path):
          # cd: изменение текущего каталога
@@ -67,7 +68,8 @@ class ShellEmulatorCLI:
 
     def date_command(self):
         # date: текущая дата и время
-        exit()
+        now = datetime.now()
+        print(now.strftime("%Y-%m-%d %H:%M:%S"))
 
     def du_command(self, path):
         # du: размер указанного файла или директории
