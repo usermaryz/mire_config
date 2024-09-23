@@ -37,7 +37,8 @@ class ShellEmulatorCLI:
         command = input()
         
         if command.startswith("ls"):
-            self.ls_command()
+            path = command.split(" ")[1] if len(command.split()) > 1 else None
+            self.ls_command(path)
         elif command.startswith("cd"):
             path = command.split(" ")[1] if len(command.split()) > 1 else "/"
             self.cd_command(path)
@@ -56,15 +57,27 @@ class ShellEmulatorCLI:
         
         self.display_prompt()
 
-    def ls_command(self):
+    def ls_command(self, path=None):
         # ls: содержимое текущего каталога
-        contents = [name.split('/')[-1] for name in self.file_system.keys() if name != self.current_directory and "/".join(name.split('/')[:-1]) == self.current_directory]
-        print("  ".join(contents))
+        if path == None or path == '..' or path == './' or path == '/':
+            contents = [name.split('/')[-1] for name in self.file_system.keys() if name != self.current_directory and "/".join(name.split('/')[:-1]) == self.current_directory]
+            print("  ".join(contents))
+        elif './' + path in self.file_system:
+            target_dir = './' + path
+            contents = [name.split('/')[-1] for name in self.file_system.keys()
+                        if name != target_dir and "/".join(name.split('/')[:-1]) == target_dir]
+            if contents:
+                print("  ".join(contents))
+            else:
+                print(f"{path}: Directory is empty")
+        else:
+            print(f"Error: Directory {path} not found")
 
     def cd_command(self, path):
         # cd: изменение текущего каталога
         if path == "..":
-            self.current_directory = os.path.dirname(self.current_directory)
+            if self.current_directory != '.':
+                self.current_directory = os.path.dirname(self.current_directory)
         elif './' + path in self.file_system:
             self.current_directory = './' + path
         else:
