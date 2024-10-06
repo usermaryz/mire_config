@@ -188,7 +188,7 @@ util.o: util.c util.h
 
 clean:
 	@rm -f main.o util.o
-	@echo Cleaning complete. Мяу!
+	@echo Cleaning complete.
 ```
 
 ## Задание 4
