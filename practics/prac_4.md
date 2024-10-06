@@ -41,6 +41,20 @@ with open('Makefile', 'w') as f:
 print("Makefile сгенерирован!")
 ```
 
+```makefile
+all: main.o util.o
+	@echo Building all
+
+main.o: main.c util.h
+	@echo Building main.o
+
+util.o: util.c util.h
+	@echo Building util.o
+
+clean: 
+	@echo Building clean
+```
+
 ## Задание 2
 Реализовать вариант трансляции, при котором повторный запуск make не выводит для civgraph на экран уже выполненные "задачи".
 ```py
@@ -76,7 +90,7 @@ with open('Makefile', 'w') as f:
 print("Makefile сгенерирован!")
 ```
 
-```
+```makefile
 all: main.o util.o
 	@if [ ! -f all ] || [ all -ot main.o -o all -ot util.o ]; then \
 		echo Building all; \
@@ -153,7 +167,7 @@ with open('Makefile', 'w') as f:
 print("Makefile сгенерирован!")
 ```
 
-```
+```makefile
 all: main.o util.o
 	@if [ ! -f all ] || [ all -ot main.o -o all -ot util.o ]; then \
 		echo Building all; \
