@@ -208,6 +208,8 @@ output [
   "dropdown: ", show(selected_dropdown)
 ];
 ```
+<img width="240" alt="Снимок экрана 2024-10-06 в 6 31 20 PM" src="https://github.com/user-attachments/assets/71ac2efa-4006-4a4b-9d88-47f4b6d5e36a">
+
 
 ## Задача 6
 ```
@@ -220,7 +222,7 @@ array[Package] of set of Version: available_versions = [
   {v100, v200},  % target
   {v100},        % left
   {v100},        % right
-  {v100, v200}   % shared
+  {v100, v110, v200}   % shared
 ];
 
 array[Package] of var Version: installed_version;
@@ -233,30 +235,29 @@ constraint (installed_version[foo] = v110) -> (installed_version[left] = v100 /\
 
 constraint (installed_version[foo] = v100);
 
-constraint (installed_version[left] = v100) -> (installed_version[shared] in {v100, v200});
+constraint (installed_version[left] = v100) -> (installed_version[shared] in {v100, v110, v200});
 
-constraint (installed_version[right] = v100) -> (installed_version[shared] = v100);
+constraint (installed_version[right] = v100) -> (installed_version[shared] in {v100, v110});
 
 constraint (installed_version[shared] = v200) -> true;
 
-constraint (installed_version[shared] = v100) -> (installed_version[target] in {v100, v200});
+constraint (installed_version[shared] = v110) -> true;
+
+constraint (installed_version[shared] = v100) -> (installed_version[target] in {v100});
 
 constraint (installed_version[target] = v200) -> true;
 constraint (installed_version[target] = v100) -> true;
 
 output [
   "Installed versions:\n",
-  "root: ", show(installed_version[root]), "\n",
   "foo: ", show(installed_version[foo]), "\n",
   "target: ", show(installed_version[target]), "\n",
   "left: ", show(installed_version[left]), "\n",
   "right: ", show(installed_version[right]), "\n",
   "shared: ", show(installed_version[shared]), "\n"
 ];
-
 ```
-<img width="504" alt="image" src="https://github.com/user-attachments/assets/65d7e0d9-b3e3-476d-8657-ccb453173701">
-
+<img width="253" alt="Снимок экрана 2024-10-06 в 6 46 35 PM" src="https://github.com/user-attachments/assets/7f909fc8-9c13-4ce2-af37-225745924d17">
 
 ## Задача 7
 ```
