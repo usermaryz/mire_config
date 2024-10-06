@@ -43,7 +43,7 @@ print("Makefile сгенерирован!")
 
 ## Задание 2
 Реализовать вариант трансляции, при котором повторный запуск make не выводит для civgraph на экран уже выполненные "задачи".
-```
+```py
 class CivGraphToMakefileConverter:
     def __init__(self, dependencies):
         self.dependencies = dependencies
@@ -105,7 +105,7 @@ clean:
 
 ## Задание 3
 Добавить цель clean, не забыв и про "животное".
-```
+```py
 class CivGraphToMakefileConverter:
     def __init__(self, dependencies, objects):
         """
