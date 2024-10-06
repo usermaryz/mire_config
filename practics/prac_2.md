@@ -1,4 +1,4 @@
-## Задача1
+## Задача 1
 ```
 pip show matplotlib
 ```
@@ -32,7 +32,7 @@ cd matplotlib
 python setup.py install
 ```
 
-## Задача2
+## Задача 2
 ```
 npm view express
 ```
@@ -68,7 +68,7 @@ npm install
 ```
 
 
-## Задача3
+## Задача 3
 ```python
 import graphviz
 
@@ -134,7 +134,7 @@ print(f"Граф сохранен в файл: {output_path}.png")
 ![dependencies_graph](https://github.com/user-attachments/assets/61f019db-0724-4603-b99f-1adf7e626167)
 
 
-## Задача4
+## Задача 4
 ```minizinc
 include "globals.mzn";
 
@@ -158,7 +158,7 @@ solve minimize (ticket[1]+ticket[2]+ticket[3]);
 <img width="353" alt="Снимок экрана 2024-09-20 в 10 49 17 PM" src="https://github.com/user-attachments/assets/e6ed054c-a1ed-4501-b8d8-cb9a2383e7f1">
 
 
-## Задача5
+## Задача 5
 ```
 enum Package = {root, menu, dropdown, icons};
 
@@ -185,7 +185,7 @@ output [
 
 ```
 
-## Задача6
+## Задача 6
 ```
 enum Package = {root, foo, left, right, shared, target};
 
@@ -220,6 +220,6 @@ output [
 <img width="504" alt="image" src="https://github.com/user-attachments/assets/65d7e0d9-b3e3-476d-8657-ccb453173701">
 
 
-## Задача7
+## Задача 7
 ```
 ```
