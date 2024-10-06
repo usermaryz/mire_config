@@ -160,62 +160,100 @@ solve minimize (ticket[1]+ticket[2]+ticket[3]);
 
 ## Задача 5
 ```
-enum Package = {root, menu, dropdown, icons};
+array [1..2] of var 0..1: icons_package;
+array [1..6] of var 0..1: menu_package;
+array [1..5] of var 0..1: dropdown_package;
 
-array[Package] of int: num_versions = [1, 6, 5, 2];
+var 1..2: selected_icons;
+var 1..6: selected_menu;
+var 1..5: selected_dropdown;
 
-array[Package] of var 1..6: selected_version;
+constraint sum(icons_package) = 1;
+constraint sum(menu_package) = 1;
+constraint sum(dropdown_package) = 1;
 
-% root зависит от menu >= 1.1.0, icons >= 1.0.0 (все версии)
-constraint selected_version[root] = 1 -> 
-    (selected_version[menu] >= 2 /\ selected_version[dropdown] >= 2 /\ selected_version[icons] >= 1);
+constraint icons_package[2] = 0;
 
-% menu 1.1.0 и выше зависит от dropdown >= 2.0.0, icons >= 2.0.0
-constraint selected_version[menu] >= 2 -> 
-    (selected_version[dropdown] >= 2 /\ selected_version[icons] >= 2);
+constraint menu_package[1] = dropdown_package[1];
 
-solve satisfy;
+constraint forall(v in 2..6)(
+  menu_package[v] <= dropdown_package[2] + dropdown_package[5]
+);
+
+constraint forall(v in 2..5)(
+  dropdown_package[v] <= icons_package[2]
+);
+
+constraint forall(v in 1..2)(
+  if icons_package[v] == 1 
+  then selected_icons = v 
+  else true endif
+);
+
+constraint forall(v in 1..6)(
+  if menu_package[v] == 1 
+  then selected_menu = v 
+  else true endif
+);
+
+constraint forall(v in 1..5)(
+  if dropdown_package[v] == 1 
+  then selected_dropdown = v 
+  else true endif
+);
 
 output [
-    "root: ", show(selected_version[root]), "\n",
-    "menu: ", show(selected_version[menu]), "\n",
-    "dropdown: ", show(selected_version[dropdown]), "\n",
-    "icons: ", show(selected_version[icons]), "\n"
+  "icons: ", show(selected_icons), "\n",
+  "menu: ", show(selected_menu), "\n",
+  "dropdown: ", show(selected_dropdown)
 ];
-
 ```
 
 ## Задача 6
 ```
-enum Package = {root, foo, left, right, shared, target};
+enum Version = {v100, v110, v200};  % Версии 1.0.0, 1.1.0, 2.0.0
+enum Package = {root, foo, target, left, right, shared};
 
-array[Package] of int: num_versions = [1, 2, 1, 1, 2, 2];
+array[Package] of set of Version: available_versions = [
+  {v100},        % root
+  {v100, v110},  % foo
+  {v100, v200},  % target
+  {v100},        % left
+  {v100},        % right
+  {v100, v200}   % shared
+];
 
-array[Package] of var 1..2: selected_version;
+array[Package] of var Version: installed_version;
 
-constraint selected_version[root] = 1 -> 
-    (selected_version[foo] >= 1 /\ selected_version[foo] <= 2 /\
-     selected_version[target] = 2);
+constraint (installed_version[root] = v100) -> (installed_version[foo] in {v100, v110} /\
+                                                 installed_version[target] = v200);
 
-constraint selected_version[foo] = 2 -> 
-    (selected_version[left] = 1 /\ selected_version[right] = 1);
+constraint (installed_version[foo] = v110) -> (installed_version[left] = v100 /\
+                                                installed_version[right] = v100);
 
-constraint selected_version[left] = 1 -> selected_version[shared] >= 1;
+constraint (installed_version[foo] = v100);
 
-constraint selected_version[right] = 1 -> selected_version[shared] < 2;
+constraint (installed_version[left] = v100) -> (installed_version[shared] in {v100, v200});
 
-constraint selected_version[shared] = 1 -> selected_version[target] = 1;
+constraint (installed_version[right] = v100) -> (installed_version[shared] = v100);
 
-solve satisfy;
+constraint (installed_version[shared] = v200) -> true;
+
+constraint (installed_version[shared] = v100) -> (installed_version[target] in {v100, v200});
+
+constraint (installed_version[target] = v200) -> true;
+constraint (installed_version[target] = v100) -> true;
 
 output [
-    "root: ", show(selected_version[root]), "\n",
-    "foo: ", show(selected_version[foo]), "\n",
-    "left: ", show(selected_version[left]), "\n",
-    "right: ", show(selected_version[right]), "\n",
-    "shared: ", show(selected_version[shared]), "\n",
-    "target: ", show(selected_version[target]), "\n"
+  "Installed versions:\n",
+  "root: ", show(installed_version[root]), "\n",
+  "foo: ", show(installed_version[foo]), "\n",
+  "target: ", show(installed_version[target]), "\n",
+  "left: ", show(installed_version[left]), "\n",
+  "right: ", show(installed_version[right]), "\n",
+  "shared: ", show(installed_version[shared]), "\n"
 ];
+
 ```
 <img width="504" alt="image" src="https://github.com/user-attachments/assets/65d7e0d9-b3e3-476d-8657-ccb453173701">
 
