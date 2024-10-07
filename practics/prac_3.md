@@ -88,7 +88,7 @@ in { groups = groups, students = students, subject = subject }
 ```
 
 ## Задание 3
-```
+```py
 import random
 
 
