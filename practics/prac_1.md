@@ -2,15 +2,15 @@
 ```bash
 cat /etc/passwd | sort
 ```
-<img width="798" alt="Screenshot 2024-09-02 at 16 35 58 (1)" src="https://github.com/user-attachments/assets/0ef3cb81-d7d4-4002-a9c0-e6493df323ec">
+<img width="798" alt="1" src="https://github.com/user-attachments/assets/9ab65f29-05eb-4e54-a2a9-1410fa391085">
+
 
 
 ## Задача 2
 ```bash
 cat /etc/protocols | awk '{print $2, $1}' | sort -nr |head -n 5
 ```
-
-<img width="844" alt="Screenshot 2024-09-02 at 17 08 30 (1)" src="https://github.com/user-attachments/assets/2f8949c2-6322-4c90-a22b-9e33daae00f5">
+<img width="844" alt="2" src="https://github.com/user-attachments/assets/7c60baab-a1c0-42d9-8ae6-cb492a30e92b">
 
 
 ## Задача 3
@@ -28,16 +28,14 @@ echo $border
 echo "| $word |"
 echo $border
 ```
-
-<img width="424" alt="Screenshot 2024-09-02 at 17 48 27 (1)" src="https://github.com/user-attachments/assets/6d29c95d-897f-4232-8601-c59762b3eaf6">
+<img width="424" alt="3" src="https://github.com/user-attachments/assets/790ce2c8-d800-4325-bbd9-b3d5e9372450">
 
 
 ## Задача 4
 ```bash
 grep -o -E '\b[a-zA-Z_][a-zA-Z0-9_]*\b' hello.c | sort | uniq | tr '\n' ' '
 ```
-
-<img width="768" alt="Снимок экрана 2024-09-09 в 2 13 41 AM" src="https://github.com/user-attachments/assets/f7d09545-f513-4a9f-8837-d7983a66784d">
+<img width="768" alt="4" src="https://github.com/user-attachments/assets/e5911897-1d0e-46bf-ab52-d3d9b410ea5c">
 
 
 ## Задача 5
