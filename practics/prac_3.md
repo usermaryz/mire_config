@@ -78,7 +78,7 @@ let students : List Student = [
 	create_student 19 (create_group 4) "Иванов И.И.", 
 	create_student 18 (create_group 4) "Петров П.П.",
 	create_student 18 (create_group 5) "Сидоров С.С.",
-	create_student 19 (create_group 10) "Маркаданов А.А."
+	create_student 19 (create_group 10) "Землянская М.М."
 ]
 
 let subject = "Конфигурационное управление"
