@@ -2,7 +2,7 @@
 ```
 pip show matplotlib
 ```
-<img width="571" alt="image" src="https://github.com/user-attachments/assets/45e633f0-3a07-4d05-8400-f1acfbaac1c0">
+<img width="571" alt="11" src="https://github.com/user-attachments/assets/6646ca48-b76b-4a7c-b514-4a5accc67e25">
 
 ### Основные элементы:
 Name: Название пакета — matplotlib.  
@@ -36,7 +36,7 @@ python setup.py install
 ```
 npm view express
 ```
-<img width="569" alt="image" src="https://github.com/user-attachments/assets/48fb078b-93c1-47f3-9af2-be785177bd5e">
+<img width="569" alt="222" src="https://github.com/user-attachments/assets/b9e23d92-eabb-4aba-b897-752d2a9c2bfc">
 
 ### Основные элементы:  
 express@4.21.0: Название пакета и версия — express@4.21.0.  
@@ -100,7 +100,7 @@ dot.render(output_path, format='png')
 
 print(f"Граф сохранен в файл: {output_path}.png")
 ```
-![dependencies_graph](https://github.com/user-attachments/assets/42169f3c-d0c1-46ca-b133-9b0fe8139946)
+![33](https://github.com/user-attachments/assets/1d7b7a0d-bc9f-4408-9ab3-72975e876878)
 
 
 ```python
@@ -131,7 +131,7 @@ dot.render(output_path, format='png')
 
 print(f"Граф сохранен в файл: {output_path}.png")
 ```
-![dependencies_graph](https://github.com/user-attachments/assets/61f019db-0724-4603-b99f-1adf7e626167)
+![44](https://github.com/user-attachments/assets/f73b0796-dd30-4f51-8424-e46a03c08108)
 
 
 ## Задача 4
@@ -154,8 +154,7 @@ constraint left_sum = right_sum;
 % Определение целевой функции - минимизация суммы всех цифр (можно минимизировать, например, сумму цифр билета)
 solve minimize (ticket[1]+ticket[2]+ticket[3]);
 ```
-
-<img width="353" alt="Снимок экрана 2024-09-20 в 10 49 17 PM" src="https://github.com/user-attachments/assets/e6ed054c-a1ed-4501-b8d8-cb9a2383e7f1">
+<img width="353" alt="55" src="https://github.com/user-attachments/assets/96b377d1-b533-4b85-8741-f6c8c101bea9">
 
 
 ## Задача 5
