@@ -33,6 +33,9 @@
 }
 ```
 
+<img width="1148" alt="Screenshot 2024-10-14 at 16 35 11" src="https://github.com/user-attachments/assets/d8bee74b-0472-47ab-b9ef-06d4ccf5c0b4">
+
+
 ## Задание 2
 Реализовать на Dhall приведенный ниже пример в формате JSON. Использовать в реализации свойство программируемости и принцип DRY.
 ```
@@ -86,6 +89,7 @@ let subject = "Конфигурационное управление"
 in { groups = groups, students = students, subject = subject }
 
 ```
+<img width="1246" alt="Screenshot 2024-10-14 at 16 35 37" src="https://github.com/user-attachments/assets/262a8446-9f48-4701-a8e1-7a3dbcebedc5">
 
 ## Задание 3
 ```py
@@ -127,6 +131,7 @@ BNF = '''
 E = 0 | 1 E | 1
 '''
 ```
+<img width="409" alt="Screenshot 2024-10-14 at 16 36 04" src="https://github.com/user-attachments/assets/6d43affd-b979-4cf1-9d30-abb74ef836f3">
 
 ## Задание 4
 Язык правильно расставленных скобок двух видов.
@@ -135,6 +140,7 @@ BNF = '''
 E = () | {} | ( E ) | { E } | E E
 '''
 ```
+<img width="446" alt="Screenshot 2024-10-14 at 16 36 47" src="https://github.com/user-attachments/assets/98fa1c12-1d29-4e4c-9629-85760f82df35">
 
 ## Задание 5
 Язык выражений алгебры логики.
@@ -144,3 +150,6 @@ E = E & E | E OR E | ~ E | ( E ) | x | y
 '''
 ```
 + ```print(generate_phrase(parse_bnf(BNF), 'E').replace("OR", "|"))```
+
+<img width="910" alt="Screenshot 2024-10-14 at 16 38 29" src="https://github.com/user-attachments/assets/6e51a184-3158-4e7d-9b26-bc77506538a5">
+
