@@ -1,0 +1,6 @@
+[visualizer]
+graphviz_path = "/opt/homebrew/bin/dot"  # Путь к программе для визуализации Graphviz
+output_path = "dependency_graph.png"  # Путь для сохранения графа
+
+[package]
+name = "vue"  # Имя анализируемого пакета
