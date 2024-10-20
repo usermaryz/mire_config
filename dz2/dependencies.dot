@@ -1,7 +1,3 @@
 digraph dependencies {
-  "vue" -> "@vue/shared";
-  "vue" -> "@vue/compiler-dom";
-  "vue" -> "@vue/compiler-sfc";
-  "vue" -> "@vue/runtime-dom";
-  "vue" -> "@vue/server-renderer";
+  "loose-envify" -> "js-tokens";
 }

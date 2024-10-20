@@ -3,4 +3,4 @@ graphviz_path = "/opt/homebrew/bin/dot"
 output_path = "dependency_graph.png"
 
 [package]
-name = "loose-envify"
+name = "12345"
