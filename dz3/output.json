@@ -1,0 +1,22 @@
+{
+  "app_name": "SuperApp",
+  "version": 2,
+  "supported_languages": [
+    "en",
+    "fr",
+    "de",
+    "es"
+  ],
+  "api_url": "https://api.superapp.com",
+  "api_key": "1234567890abcdef",
+  "languages": [
+    "en",
+    "fr",
+    "de",
+    "es"
+  ],
+  "api_details": [
+    "https://api.superapp.com",
+    "1234567890abcdef"
+  ]
+}

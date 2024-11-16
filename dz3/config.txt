@@ -1,0 +1,13 @@
+/# Основная конфигурация #/
+var app_name @"SuperApp"
+var version 2
+var supported_languages [ @"en"; @"fr"; @"de"; @"es" ]
+
+/# Параметры API #/
+var api_url @"https://api.superapp.com"
+var api_key @"1234567890abcdef"
+
+app_name $app_name$
+version $version$
+languages $supported_languages$
+api_details [ $api_url$; $api_key$ ]
