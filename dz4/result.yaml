@@ -1,0 +1,317 @@
+logs:
+- a: 30
+  accumulator: 45
+  action: 'LOAD_CONSTANT: Set ACC to 45'
+  b: 45
+  memory_snapshot:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 8
+  accumulator: 45
+  action: 'MEMORY_WRITE: Wrote 45 to memory[0]'
+  b: 0
+  memory_snapshot:
+  - 45
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 30
+  accumulator: 23
+  action: 'LOAD_CONSTANT: Set ACC to 23'
+  b: 23
+  memory_snapshot:
+  - 45
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 8
+  accumulator: 23
+  action: 'MEMORY_WRITE: Wrote 23 to memory[1]'
+  b: 1
+  memory_snapshot:
+  - 45
+  - 23
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 30
+  accumulator: 89
+  action: 'LOAD_CONSTANT: Set ACC to 89'
+  b: 89
+  memory_snapshot:
+  - 45
+  - 23
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 8
+  accumulator: 89
+  action: 'MEMORY_WRITE: Wrote 89 to memory[2]'
+  b: 2
+  memory_snapshot:
+  - 45
+  - 23
+  - 89
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 30
+  accumulator: 67
+  action: 'LOAD_CONSTANT: Set ACC to 67'
+  b: 67
+  memory_snapshot:
+  - 45
+  - 23
+  - 89
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 8
+  accumulator: 67
+  action: 'MEMORY_WRITE: Wrote 67 to memory[3]'
+  b: 3
+  memory_snapshot:
+  - 45
+  - 23
+  - 89
+  - 67
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 30
+  accumulator: 12
+  action: 'LOAD_CONSTANT: Set ACC to 12'
+  b: 12
+  memory_snapshot:
+  - 45
+  - 23
+  - 89
+  - 67
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 8
+  accumulator: 12
+  action: 'MEMORY_WRITE: Wrote 12 to memory[4]'
+  b: 4
+  memory_snapshot:
+  - 45
+  - 23
+  - 89
+  - 67
+  - 12
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 30
+  accumulator: 78
+  action: 'LOAD_CONSTANT: Set ACC to 78'
+  b: 78
+  memory_snapshot:
+  - 45
+  - 23
+  - 89
+  - 67
+  - 12
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 8
+  accumulator: 78
+  action: 'MEMORY_WRITE: Wrote 78 to memory[5]'
+  b: 5
+  memory_snapshot:
+  - 45
+  - 23
+  - 89
+  - 67
+  - 12
+  - 78
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 30
+  accumulator: 67
+  action: 'LOAD_CONSTANT: Set ACC to 67'
+  b: 67
+  memory_snapshot:
+  - 45
+  - 23
+  - 89
+  - 67
+  - 12
+  - 78
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 20
+  accumulator: 67
+  action: 'GREATER_THAN: memory[0] set to 0'
+  b: 0
+  memory_snapshot:
+  - 0
+  - 23
+  - 89
+  - 67
+  - 12
+  - 78
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 20
+  accumulator: 67
+  action: 'GREATER_THAN: memory[1] set to 0'
+  b: 1
+  memory_snapshot:
+  - 0
+  - 0
+  - 89
+  - 67
+  - 12
+  - 78
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 20
+  accumulator: 67
+  action: 'GREATER_THAN: memory[2] set to 1'
+  b: 2
+  memory_snapshot:
+  - 0
+  - 0
+  - 1
+  - 67
+  - 12
+  - 78
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 20
+  accumulator: 67
+  action: 'GREATER_THAN: memory[3] set to 0'
+  b: 3
+  memory_snapshot:
+  - 0
+  - 0
+  - 1
+  - 0
+  - 12
+  - 78
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 20
+  accumulator: 67
+  action: 'GREATER_THAN: memory[4] set to 0'
+  b: 4
+  memory_snapshot:
+  - 0
+  - 0
+  - 1
+  - 0
+  - 0
+  - 78
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+- a: 20
+  accumulator: 67
+  action: 'GREATER_THAN: memory[5] set to 1'
+  b: 5
+  memory_snapshot:
+  - 0
+  - 0
+  - 1
+  - 0
+  - 0
+  - 1
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+memory_dump:
+  mem[0]: 0
+  mem[10]: 0
+  mem[1]: 0
+  mem[2]: 1
+  mem[3]: 0
+  mem[4]: 0
+  mem[5]: 1
+  mem[6]: 0
+  mem[7]: 0
+  mem[8]: 0
+  mem[9]: 0
