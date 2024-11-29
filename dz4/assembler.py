@@ -1,76 +1,75 @@
-import struct
-import argparse
+# вызов: python3 assembler.py tests/input.asm tests/output.bin tests/log.yaml
+
 import yaml
+import struct
 
-# Функции для каждой команды
-def load_constant(b):
-    a = 30
-    return struct.pack('>BH', (a | (b << 5)) & 0xFF, (b << 5) & 0xFFFF00)
+def loadConstant(A, B):
+    if not (0 <= A < 2**5) or not (0 <= B < 2**24):
+        print("нарушен лимит разрядности")
+    command_bits = (B << 5) | A
+    return struct.pack("<I", command_bits)  # Формат big-endian
 
-def memory_read(b):
-    a = 0
-    return struct.pack('>BH', (a | (b << 5)) & 0xFF, (b << 5) & 0xFFFF00)
+def readMemory(A, B):
+    if not (0 <= A < 2**5) or not (0 <= B < 2**8):
+        raise ValueError("нарушен лимит разрядности")
+    command_bits = (B << 5) | A
+    return struct.pack("<I", command_bits)
 
-def memory_write(b):
-    a = 8
-    return struct.pack('>BH', (a | (b << 5)) & 0xFF, (b << 5) & 0xFFFF00)
+def writeMemory(A, B):
+    if not (0 <= A < 2**5) or not (0 <= B < 2**8):
+        raise ValueError("нарушен лимит разрядности")
+    command_bits = (B << 5) | A
+    return struct.pack("<I", command_bits)
 
-def greater_than(b):
-    a = 20
-    return struct.pack('>BH', (a | (b << 5)) & 0xFF, (b << 5) & 0xFFFF00)
-
-VALID_COMMANDS = {
-    "LOAD_CONSTANT": load_constant,
-    "MEMORY_READ": memory_read,
-    "MEMORY_WRITE": memory_write,
-    "GREATER_THAN": greater_than,
-}
+def popcnt(A, B):
+    if not (0 <= A < 2**5) or not (0 <= B < 2**27):
+        raise ValueError("нарушен лимит разрядности")
+    command_bits = (B << 5) | A
+    return struct.pack("<I", command_bits)
 
 def assemble(input_file, output_file, log_file):
-    logs = []
-    with open(input_file, 'r') as infile, open(output_file, 'wb') as binfile:
-        for line_num, line in enumerate(infile, 1):
-            line = line.strip()
-            if not line:
-                continue
+    commands = []
+    binary_data = bytearray()
 
-            parts = line.split()
-            if len(parts) != 2:
-                raise ValueError(f"Ошибка в строке {line_num}: неверное количество аргументов.")
+    with open(input_file, "r") as f:
+        lines = f.readlines()
 
-            command, b_value = parts[0], parts[1]
-            if command not in VALID_COMMANDS:
-                raise ValueError(f"Ошибка в строке {line_num}: недопустимая команда '{command}'.")
+    for line in lines:
+        line = line.strip().split()
+        if not line:
+            continue
+        command, *args = line
+        A = int(args[0])
+        B = int(args[1])
 
-            try:
-                b = int(b_value)
-            except ValueError:
-                raise ValueError(f"Ошибка в строке {line_num}: '{b_value}' не является целым числом.")
+        if command == 'LOAD_CONSTANT':
+            binary_line = loadConstant(A, B)
+        elif command == 'READ_MEMORY':
+            binary_line = readMemory(A, B)
+        elif command == 'WRITE_MEMORY':
+            binary_line = writeMemory(A, B)
+        elif command == 'POPCNT':
+            binary_line = popcnt(A, B)
+        else:
+            raise ValueError(f"Неизвестная команда: {command}")
 
-            command_func = VALID_COMMANDS[command]
-            code = command_func(b)
+        commands.append({"command": command, "A": A, "B": B, "bytes": binary_line.hex()})
+        binary_data.extend(binary_line)
 
-            # Логирование данных
-            log_entry = {
-                "line": line_num,
-                "command": command,
-                "b": b,
-                "machine_code": [f"0x{byte:02X}" for byte in code]
-            }
-            logs.append(log_entry)
+    # Запись бинарного файла
+    with open(output_file, "wb") as binfile:
+        binfile.write(binary_data)
 
-            # Запись машинного кода в файл
-            binfile.write(code)
-
-    # Запись логов в YAML
-    with open(log_file, 'w') as logfile:
-        yaml.dump(logs, logfile, allow_unicode=True)
+    # Запись YAML-лога
+    with open(log_file, "w") as logfile:
+        yaml.dump(commands, logfile, allow_unicode=True, default_flow_style=False)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Assembler for virtual machine.")
-    parser.add_argument("input_file", help="Path to the input file with text program")
-    parser.add_argument("output_file", help="Path to the output binary file")
-    parser.add_argument("log_file", help="Path to the log YAML file")
-    args = parser.parse_args()
-
-    assemble(args.input_file, args.output_file, args.log_file)
+    import sys
+    if len(sys.argv) != 4:
+        print("Использование: python assembler.py <входной_файл> <выходной_файл> <лог_файл>")
+        sys.exit(1)
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    log_file = sys.argv[3]
+    assemble(input_file, output_file, log_file)

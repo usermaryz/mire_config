@@ -1,64 +1,89 @@
+#вызов: python3 interpreter.py tests/output.bin  tests/result.yaml
+
 import struct
-import argparse
 import yaml
+import sys
+import traceback
 
-# Инициализация памяти и аккумулятора
-MEMORY_SIZE = 1024
-memory = [0] * MEMORY_SIZE
-accumulator = 0
+stack = [0]*16
+memory = [0]*1024
 
-def interpret(binary_file, result_file, start, end):
-    global accumulator
-    logs = []
+def indetif_command(start, end):
+    return ((1<<(end-start+1))-1)<<start
 
-    with open(binary_file, 'rb') as binfile:
-        while True:
-            command = binfile.read(3)
-            if not command:
-                break
+def load_constant(b):
+    stack.append(b)
 
-            # Распаковка команды
-            a_b, b = struct.unpack('>BH', command)
-            a = a_b % int("100000", 2)
-            b = (b >> 5) + (a_b // int("100000", 2))
+def read_memory(b):
+    if not stack:
+        print("Стек пуст")
+    address = stack.pop() + b
+    print(address)
+    stack.append(memory[address])
 
-            # Выполнение команды
-            if a == 30:  # LOAD_CONSTANT
-                accumulator = b
-                action = f"LOAD_CONSTANT: Set ACC to {b}"
-            elif a == 0:  # MEMORY_READ
-                accumulator = memory[b]
-                action = f"MEMORY_READ: Read {accumulator} from memory[{b}]"
-            elif a == 8:  # MEMORY_WRITE
-                memory[b] = accumulator
-                action = f"MEMORY_WRITE: Wrote {accumulator} to memory[{b}]"
-            elif a == 20:  # GREATER_THAN
-                memory[b] = 1 if memory[b] > accumulator else 0
-                action = f"GREATER_THAN: memory[{b}] set to {memory[b]}"
+def write_memory(b):
+    if len(stack) < 2:
+        print("Недостаточно элементов в стеке")
+    address = stack.pop() + b
+    memory[address] = stack.pop()
 
-            # Логирование действия
-            logs.append({
-                "a": a,
-                "b": b,
-                "action": action,
-                "accumulator": accumulator,
-                "memory_snapshot": memory[start:end + 1]
-            })
+def unary_popcnt(b):
+    if not stack:
+        print("Стек пуст")
+    value = stack.pop()
+    memory[b] = bin(value).count("1")
 
-    # Запись результата в YAML
-    result_data = {
-        "memory_dump": {f"mem[{i}]": memory[i] for i in range(start, end + 1)},
-        "logs": logs
+def get_operand(chunk, start, end):
+    return (int.from_bytes(chunk)&indetif_command(start, end)) >> start
+
+def execute(command, chunk):
+    if command == 16:  # Загрузка константы
+        b = get_operand(chunk, 5, 27)
+        load_constant(b)
+    elif command == 7:  # Чтение из памяти
+        b = get_operand(chunk, 5, 11)
+        read_memory(b)
+    elif command == 23:  # Запись в память
+        b = get_operand(chunk, 5, 11)
+        write_memory(b)
+    elif command == 10:  # Унарная операция popcnt
+        b = get_operand(chunk, 5, 30)
+        unary_popcnt(b)
+    else:
+        print(f"Неизвестная команда: {command}")
+
+def get_state():
+    return {
+        "stack": stack,
+        "memory": memory,
     }
-    with open(result_file, 'w') as resfile:
-        yaml.dump(result_data, resfile, allow_unicode=True)
+
+def parse_binary(file_path):
+    with open(file_path, "rb") as f:
+        while chunk := bytearray(f.read(4)):  # Читаем по 4 байта
+            chunk.reverse()
+            command = chunk[-1]&indetif_command(0, 4)
+            execute(command, chunk)
+
+def main():
+    if len(sys.argv) < 3:
+        print("Использование: python interpetor.py <input_file> <output_file>")
+        sys.exit(1)
+
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+
+    try:
+        parse_binary(input_file)
+    except Exception as e:
+        print(traceback.print_exc())
+        sys.exit(1)
+
+    # Сохранение состояния в YAML
+    with open(output_file, "w") as f:
+        yaml.dump(get_state(), f)
+
+    print(f"Результат сохранен в {output_file}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Interpreter for virtual machine.")
-    parser.add_argument("binary_file", help="Path to the binary input file")
-    parser.add_argument("result_file", help="Path to the result YAML file")
-    parser.add_argument("start", type=int, help="Starting memory address to output")
-    parser.add_argument("end", type=int, help="Ending memory address to output")
-    args = parser.parse_args()
-
-    interpret(args.binary_file, args.result_file, args.start, args.end)
+    main()

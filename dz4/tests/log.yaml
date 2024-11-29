@@ -1,0 +1,16 @@
+- A: 16
+  B: 599
+  bytes: f04a0000
+  command: LOAD_CONSTANT
+- A: 7
+  B: 43
+  bytes: '67050000'
+  command: READ_MEMORY
+- A: 23
+  B: 124
+  bytes: 970f0000
+  command: WRITE_MEMORY
+- A: 10
+  B: 691
+  bytes: 6a560000
+  command: POPCNT
